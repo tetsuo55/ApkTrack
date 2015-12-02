@@ -74,14 +74,15 @@ public class BroadcastHandler extends BroadcastReceiver
         ModelModifiedMessage.event_type type = null;
         if (Intent.ACTION_PACKAGE_ADDED.equals(i.getAction()))
         {
-            if (InstalledApp.find_app(package_name) == null)
+            InstalledApp app = InstalledApp.find_app(package_name);
+            if (app == null)
             {
                 type = ModelModifiedMessage.event_type.APP_ADDED;
                 InstalledApp.create_app(ctx.getPackageManager(), package_name);
             }
             else // The app was "added", but already exists. This is actually a replacement.
             {
-                if (!InstalledApp.detect_new_version(ctx.getPackageManager(), package_name)) {
+                if (!InstalledApp.detect_new_version(ctx, package_name)) {
                     return; // Do not send an event if the version number hasn't changed.
                 }
                 type = ModelModifiedMessage.event_type.APP_UPDATED;

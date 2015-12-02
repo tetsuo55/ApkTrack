@@ -24,17 +24,6 @@
     "request_delay": 100
   },
   {
-    "name": "9Folders",
-    "url": "http://9folders.com/latest_version/",
-    "packages": {
-      "^com.ninefolders.hd3$": {
-        "version": "<span>Version name</span> <span>([^<]+?)</span>",
-        "download": "http://9folders.com/downloads/nine-v%2$s.apk"
-      }
-    },
-    "autoselect_if": ["applicable"]
-  },
-  {
     "name": "SRLabs",
     "url": "https://opensource.srlabs.de/projects/snoopsnitch",
     "packages": {
@@ -83,8 +72,8 @@
     "url": "https://nightly.mozilla.org/",
     "packages": {
       "^org.mozilla.fennec$": {
-        "version": "<a href=\"https://ftp\\.mozilla\\.org/pub/mozilla\\.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-(.*?)\\.multi\\.android-arm\\.apk\">\\s*?Android \\(ARMv7, 3\\.0 Honeycomb and above\\)",
-        "download": "https://ftp.mozilla.org/pub/mozilla.org/mobile/nightly/latest-mozilla-central-android-api-11/fennec-%2$s.multi.android-arm.apk"
+        "version": "<a href=\"https://archive\\.mozilla\\.org/pub/mobile/nightly/latest-mozilla-central-android-api-11/fennec-(.*?)\\.multi\\.android-arm\\.apk\">\\s*?Android \\(ARMv7, 3\\.0 Honeycomb and above\\)",
+        "download": "https://archive.mozilla.org/pub/mobile/nightly/latest-mozilla-central-android-api-11/fennec-%2$s.multi.android-arm.apk"
       }
     },
     "autoselect_if": ["applicable"]
@@ -131,7 +120,8 @@
     "url": "https://apktrack.kwiatkowski.fr/version/%1$s",
     "packages": {
       ".*": {
-        "version": "<version>([^<]+?)</version>"
+        "version": "<version>([^<]+?)</version>",
+        "download_regexp": "<apk>([^<]+?)</apk>"
       }
     },
     "request_delay": 100

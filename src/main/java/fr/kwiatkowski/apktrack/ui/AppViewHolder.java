@@ -18,6 +18,7 @@
 package fr.kwiatkowski.apktrack.ui;
 
 import android.annotation.TargetApi;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -30,17 +31,22 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import fr.kwiatkowski.apktrack.MainActivity;
 import fr.kwiatkowski.apktrack.R;
 import fr.kwiatkowski.apktrack.model.AppIcon;
 import fr.kwiatkowski.apktrack.model.InstalledApp;
 import fr.kwiatkowski.apktrack.service.EventBusHelper;
+import fr.kwiatkowski.apktrack.service.WebService;
 import fr.kwiatkowski.apktrack.service.message.ModelModifiedMessage;
-import fr.kwiatkowski.apktrack.service.WebScraperService;
+import fr.kwiatkowski.apktrack.service.utils.CapabilitiesHelper;
+import fr.kwiatkowski.apktrack.service.utils.DownloadInfo;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -125,9 +131,10 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
         EventBusHelper.post_sticky(ModelModifiedMessage.event_type.APP_UPDATED, app.get_package_name());
 
         // Launch an update check
-        Intent i = new Intent(v.getContext(), WebScraperService.class);
-        i.putExtra(WebScraperService.TARGET_APP_PARAMETER, _package_name);
-        i.putExtra(WebScraperService.SOURCE_PARAMETER, AppDisplayFragment.APP_DISPLAY_FRAGMENT_SOURCE);
+        Intent i = new Intent(v.getContext(), WebService.class);
+        i.putExtra(WebService.TARGET_APP_PARAMETER, _package_name);
+        i.putExtra(WebService.SOURCE_PARAMETER, AppDisplayFragment.APP_DISPLAY_FRAGMENT_SOURCE);
+        i.putExtra(WebService.ACTION, WebService.ACTION_VERSION_CHECK);
         v.getContext().startService(i);
     }
 
@@ -197,7 +204,7 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
             else {
                 _app_version.setText(app.get_version());
             }
-            _app_version.setTextColor(Color.GREEN);
+            _app_version.setTextColor(Color.parseColor("#007000")); // Dark green
         }
         else // App is outdated
         {
@@ -259,7 +266,7 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
      */
     private void _set_action_icon(final InstalledApp app, final Context ctx)
     {
-        if (app.is_currently_checking())
+        if (app.is_currently_checking()) // Show the spinner.
         {
             _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_popup_sync));
             _action_icon.setVisibility(View.VISIBLE);
@@ -270,48 +277,140 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
         }
         else if (app.is_update_available())
         {
-            if (app.get_download_url() != null) {
-                _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_download));
-            }
-            else {
-                _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_btn_search));
-            }
-
-            // User clicks open the download or search for an APK.
-            _action_icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view)
+            if (app.get_download_url() != null) // The app may be ready to be downloaded or downloaded.
+            {
+                if (app.get_download_id() != 0) // Currently downloading or downloaded
                 {
-                    Uri uri;
-                    if (app.get_download_url() != null)
+                    final DownloadInfo info = new DownloadInfo(app.get_download_id(), ctx);
+                    if (info.is_valid())
                     {
-                        uri = Uri.parse(String.format(app.get_download_url(),
-                                                      app.get_display_name(),
-                                                      app.get_latest_version()));
+                        if (_set_action_icon_download(info, ctx)) {
+                            return;
+                        }
+                        else { // Error while downloading, or the user deleted files manually.
+                            app.clean_downloads(ctx);
+                        } // Then display the download icon to try again.
                     }
-                    else {
-                        uri = Uri.parse(
-                                String.format(
-                                    PreferenceManager.getDefaultSharedPreferences(ctx).
-                                        getString(SettingsFragment.KEY_PREF_SEARCH_ENGINE,
-                                                ctx.getString(R.string.search_engine_default)),
-                                    app.get_display_name(),
-                                    app.get_latest_version(),
-                                    app.get_package_name()));
-                    }
-                    ctx.startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 }
-            });
+
+                if (!CapabilitiesHelper.check_download_service(ctx)) // APK available, but no download service.
+                {                                                    // Do nothing.
+                    _action_icon.setImageDrawable(null);
+                    _action_icon.setVisibility(View.INVISIBLE);
+                    return;
+                }
+
+                // APK available: show the download icon.
+                _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, android.R.drawable.stat_sys_download));
+                _action_icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        // Ask the WebService to download the APK.
+                        Intent i = new Intent(v.getContext(), WebService.class);
+                        i.putExtra(WebService.TARGET_APP_PARAMETER, _package_name);
+                        i.putExtra(WebService.SOURCE_PARAMETER, AppDisplayFragment.APP_DISPLAY_FRAGMENT_SOURCE);
+                        i.putExtra(WebService.ACTION, WebService.ACTION_DOWNLOAD_APK);
+                        v.getContext().startService(i);
+                    }
+                });
+            }
+            else // Show the search icon
+            {
+                if (!CapabilitiesHelper.check_browser_available(ctx)) // No browser available. Do nothing.
+                {
+                    _action_icon.setImageDrawable(null);
+                    _action_icon.setVisibility(View.INVISIBLE);
+                    return;
+                }
+                _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_btn_search));
+                _action_icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        _open_search_page(ctx, app);
+                    }
+                });
+            }
 
             _action_icon.setVisibility(View.VISIBLE);
         }
-        else
+        else // No update available, and app is not performing a version check. No icon.
         {
             if (_action_icon.hasOnClickListeners()) {
                 _action_icon.setOnClickListener(null);
             }
             _action_icon.setVisibility(View.INVISIBLE);
         }
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    /**
+     * Sets the right status icon when the app is currently downloading or has downloaded an APK.
+     * @param info The object containing the information about the download.
+     * @param ctx The context of the application.
+     * @return Whether an icon was set.
+     */
+    private boolean _set_action_icon_download(final DownloadInfo info, final Context ctx)
+    {
+        switch (info.get_status())
+        {
+            case DownloadManager.STATUS_SUCCESSFUL: // APK was downloaded. Install on click.
+                File apk = new File(info.get_local_path());
+                if (apk.exists())
+                {
+                    _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.install));
+                    _action_icon.setVisibility(View.VISIBLE);
+                    _action_icon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setDataAndType(Uri.parse(info.get_local_uri()),
+                                                       "application/vnd.android.package-archive");
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            if (i.resolveActivity(ctx.getPackageManager()) != null) {
+                                ctx.startActivity(i);
+                            }
+                            else
+                            {
+                                Log.v(MainActivity.TAG, "Could not find anyone to receive ACTION_VIEW for " +
+                                        "the downloaded APK. (" + info.get_local_uri() + ")");
+                            }
+                        }
+                    });
+                    return true;
+                }
+                else { // For some reason the APK is not present anymore. Remove the download information.
+                    return false;
+                }
+            case DownloadManager.STATUS_PENDING:
+            case DownloadManager.STATUS_RUNNING:
+                _action_icon.setImageDrawable(ContextCompat.getDrawable(ctx, android.R.drawable.stat_sys_download));
+                ((Animatable) _action_icon.getDrawable()).start();
+                _action_icon.setVisibility(View.VISIBLE);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Opens a search page for APKs based on the user's preferred search engine.
+     * @param ctx The context of the application.
+     * @param app The app whose APKs we are looking for.
+     */
+    private void _open_search_page(Context ctx, InstalledApp app)
+    {
+        Uri uri = Uri.parse(
+                String.format(
+                        PreferenceManager.getDefaultSharedPreferences(ctx).
+                                getString(SettingsFragment.KEY_PREF_SEARCH_ENGINE,
+                                        ctx.getString(R.string.search_engine_default)),
+                        app.get_display_name(),
+                        app.get_latest_version(),
+                        app.get_package_name()));
+
+        ctx.startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     // --------------------------------------------------------------------------------------------
