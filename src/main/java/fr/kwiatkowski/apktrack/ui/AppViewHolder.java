@@ -204,7 +204,7 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
             else {
                 _app_version.setText(app.get_version());
             }
-            _app_version.setTextColor(Color.GREEN);
+            _app_version.setTextColor(Color.parseColor("#007000")); // Dark green
         }
         else // App is outdated
         {
