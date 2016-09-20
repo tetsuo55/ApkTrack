@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015
+ * Copyright (c) 2016
  *
  * ApkTrack is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import java.util.Comparator;
  */
 public class StatusComparator implements Comparator<InstalledApp>
 {
-    static AlphabeticalComparator alphabetical_comparator = new AlphabeticalComparator();
+    private static AlphabeticalComparator alphabetical_comparator = new AlphabeticalComparator();
 
     @Override
     public int compare(InstalledApp a1, InstalledApp a2)
