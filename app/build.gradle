@@ -12,7 +12,6 @@ apply plugin: 'com.android.application'
  */
 
 android {
-
     /**
      * compileSdkVersion specifies the Android API level Gradle should use to
      * compile your app. This means your app can use the API features included in
@@ -22,17 +21,16 @@ android {
      * utilities, and compiler that Gradle should use to build your app. You need to
      * download the build tools using the SDK Manager.
      */
-
+    signingConfigs {
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
-
     /**
      * The defaultConfig {} block encapsulates default settings and entries for all
      * build variants, and can override some attributes in main/AndroidManifest.xml
      * dynamically from the build system. You can configure product flavors to override
      * these values for different versions of your app.
      */
-
     defaultConfig {
 
         /**
@@ -58,7 +56,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
-
     /**
      * The buildTypes {} block is where you can configure multiple build types.
      * By default, the build system defines two build types: debug and release. The
@@ -66,7 +63,6 @@ android {
      * but it includes debugging tools and is signed with the debug key. The release
      * build type applies Proguard settings and is not signed by default.
      */
-
     buildTypes {
 
         /**
@@ -75,11 +71,10 @@ android {
          */
 
         release {
-            minifyEnabled true // Enables code shrinking for the release build type.
+            minifyEnabled false // Enables code shrinking for the release build type.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     /**
      * The productFlavors {} block is where you can configure multiple product
      * flavors. This allows you to create different versions of your app that can
@@ -90,23 +85,12 @@ android {
      * an Android device, simultaneously.
 
 
-    productFlavors {
-        free {
-            applicationId 'com.example.myapp.free'
-        }
-
-        paid {
-            applicationId 'com.example.myapp.paid'
-        }
-    }
-
-    /**
+     productFlavors {free {applicationId 'com.example.myapp.free'}paid {applicationId 'com.example.myapp.paid'}}/**
      * The splits {} block is where you can configure different APK builds that
      * each contain only code and resources for a supported screen density or
      * ABI. You'll also need to configure your build so that each APK has a
      * different versionCode.
      */
-
     splits {
         // Screen density split settings
         density {
@@ -118,6 +102,8 @@ android {
             exclude "ldpi", "tvdpi", "xxxhdpi", "400dpi", "560dpi"
         }
     }
+    productFlavors {
+    }
 }
 
 /**
@@ -126,7 +112,7 @@ android {
  */
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:preference-v7:24.2.1'
     compile 'com.android.support:preference-v14:24.2.1'
