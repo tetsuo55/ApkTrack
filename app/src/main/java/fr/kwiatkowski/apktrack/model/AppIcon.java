@@ -44,7 +44,6 @@ import java.util.List;
 public class AppIcon extends SugarRecord
 {
     private byte[] _raw_image;
-    private String _owner; // Used as a foreign key into InstalledApp records.
     private static int _ICON_SIZE = 0;
 
     // --------------------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ public class AppIcon extends SugarRecord
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
         _raw_image = baos.toByteArray();
-        _owner = owner.get_package_name();
+        String _owner = owner.get_package_name();
     }
 
     // --------------------------------------------------------------------------------------------
