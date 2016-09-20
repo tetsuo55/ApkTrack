@@ -26,7 +26,7 @@ import java.util.Comparator;
  */
 public class StatusComparator implements Comparator<InstalledApp>
 {
-    private static AlphabeticalComparator alphabetical_comparator = new AlphabeticalComparator();
+    private static final AlphabeticalComparator alphabetical_comparator = new AlphabeticalComparator();
 
     @Override
     public int compare(InstalledApp a1, InstalledApp a2)
