@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2015
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016
   ~
   ~ ApkTrack is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -17,78 +16,85 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/general" android:key="pref_general">
+    <PreferenceCategory
+        android:key="pref_general"
+        android:title="@string/general">
         <CheckBoxPreference
-                android:key="pref_background_checks"
-                android:defaultValue="false"
-                android:title="@string/enable_background_checks"
-                android:summaryOn="@string/enable_background_checks_desc_enabled"
-                android:summaryOff="@string/enable_background_checks_desc_disabled"/>
-
-        <CheckBoxPreference
-                android:key="pref_automatic_downloads"
-                android:defaultValue="false"
-                android:title="@string/enable_automatic_downloads"
-                android:summaryOn="@string/enable_automatic_downloads_desc_enabled"
-                android:summaryOff="@string/enable_automatic_downloads_desc_disabled"
-                android:dependency="pref_background_checks"/>
+            android:defaultValue="false"
+            android:key="pref_background_checks"
+            android:summaryOff="@string/enable_background_checks_desc_disabled"
+            android:summaryOn="@string/enable_background_checks_desc_enabled"
+            android:title="@string/enable_background_checks" />
 
         <CheckBoxPreference
-                android:key="pref_wifi_only"
-                android:defaultValue="true"
-                android:title="@string/background_checks_on_wifi_only"
-                android:summaryOn="@string/background_checks_on_wifi_only_desc_enabled"
-                android:summaryOff="@string/background_checks_on_wifi_only_desc_disabled"
-                android:dependency="pref_background_checks"/>
+            android:defaultValue="false"
+            android:dependency="pref_background_checks"
+            android:key="pref_automatic_downloads"
+            android:summaryOff="@string/enable_automatic_downloads_desc_disabled"
+            android:summaryOn="@string/enable_automatic_downloads_desc_enabled"
+            android:title="@string/enable_automatic_downloads" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="pref_background_checks"
+            android:key="pref_wifi_only"
+            android:summaryOff="@string/background_checks_on_wifi_only_desc_disabled"
+            android:summaryOn="@string/background_checks_on_wifi_only_desc_enabled"
+            android:title="@string/background_checks_on_wifi_only" />
 
         <ListPreference
-                android:key="pref_search_engine"
-                android:entryValues="@array/search_engine_urls"
-                android:entries="@array/search_engines"
-                android:defaultValue="@string/search_engine_default"
-                android:title="@string/preferred_search_engine"
-                android:summary="@string/preferred_search_engine_desc"/>
+            android:defaultValue="@string/search_engine_default"
+            android:entries="@array/search_engines"
+            android:entryValues="@array/search_engine_urls"
+            android:key="pref_search_engine"
+            android:summary="@string/preferred_search_engine_desc"
+            android:title="@string/preferred_search_engine" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/ignored_settings"
-                        android:key="pref_ignored">
+    <PreferenceCategory
+        android:key="pref_ignored"
+        android:title="@string/ignored_settings">
 
         <Preference
-                android:key="pref_ignore_system_apps"
-                android:title="@string/ignore_system_apps"
-                android:summary="@string/ignore_system_apps_desc"/>
+            android:key="pref_ignore_system_apps"
+            android:summary="@string/ignore_system_apps_desc"
+            android:title="@string/ignore_system_apps" />
 
         <Preference
-                android:key="pref_ignore_xposed_apps"
-                android:title="@string/ignore_xposed_apps"
-                android:summary="@string/ignore_xposed_apps_desc"/>
+            android:key="pref_ignore_xposed_apps"
+            android:summary="@string/ignore_xposed_apps_desc"
+            android:title="@string/ignore_xposed_apps" />
 
         <Preference
-                android:key="pref_reset_ignored_apps"
-                android:title="@string/reset_ignored_apps"
-                android:summary="@string/click_to_unignore"/>
+            android:key="pref_reset_ignored_apps"
+            android:summary="@string/click_to_unignore"
+            android:title="@string/reset_ignored_apps" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/crash_reports_pref_category" app:key="pref_crash_reports">
-        <CheckBoxPreference android:key="acra.enable"
-                            android:title="@string/pref_enable_acra"
-                            android:summaryOn="@string/pref_acra_enabled"
-                            android:summaryOff="@string/pref_acra_disabled"
-                            android:defaultValue="true"/>
+    <PreferenceCategory
+        android:title="@string/crash_reports_pref_category"
+        app:key="pref_crash_reports">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="acra.enable"
+            android:summaryOff="@string/pref_acra_disabled"
+            android:summaryOn="@string/pref_acra_enabled"
+            android:title="@string/pref_enable_acra" />
 
-        <CheckBoxPreference android:key="acra.alwaysaccept"
-                            android:title="@string/pref_acra_alwaysaccept"
-                            android:summaryOn="@string/pref_acra_alwaysaccept_enabled"
-                            android:summaryOff="@string/pref_acra_alwaysaccept_disabled"
-                            android:dependency="acra.enable"
-                            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="acra.enable"
+            android:key="acra.alwaysaccept"
+            android:summaryOff="@string/pref_acra_alwaysaccept_disabled"
+            android:summaryOn="@string/pref_acra_alwaysaccept_enabled"
+            android:title="@string/pref_acra_alwaysaccept" />
 
         <Preference
-                android:key="action_privacy_policy"
-                android:title="@string/pref_privacy_policy"
-                android:summary="@string/pref_privacy_policy_summary"/>
+            android:key="action_privacy_policy"
+            android:summary="@string/pref_privacy_policy_summary"
+            android:title="@string/pref_privacy_policy" />
     </PreferenceCategory>
 </PreferenceScreen>
