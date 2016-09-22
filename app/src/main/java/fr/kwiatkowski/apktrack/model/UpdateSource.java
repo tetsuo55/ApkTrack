@@ -428,9 +428,9 @@ public class UpdateSource implements Serializable
 
     // --------------------------------------------------------------------------------------------
 
-    private String                          _name;
-    private String                          _url;
+    private final String                          _name;
+    private final String                          _url;
     private List<String>                    _autoselect_conditions;
-    private ArrayList<UpdateSourceEntry>    _entries;
+    private final ArrayList<UpdateSourceEntry>    _entries;
     private int                             _request_delay = 2000;
 }
