@@ -333,7 +333,7 @@ public class WebService extends IntentService
      *
      * @param ignored Never used.
      */
-    public void onEvent(StickyUpdatedMessage ignored)
+    private void onEvent(StickyUpdatedMessage ignored)
     {
         ModelModifiedMessage m = EventBus.getDefault().getStickyEvent(ModelModifiedMessage.class);
         List<InstalledApp> updated_apps = new ArrayList<InstalledApp>();
