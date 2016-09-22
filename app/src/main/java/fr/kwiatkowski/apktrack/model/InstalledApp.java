@@ -431,7 +431,7 @@ public class InstalledApp extends SugarRecord
     {
         long system_apps = InstalledApp.count(InstalledApp.class,
                                               "_systemapp = 1 AND _isignored = 0",
-                                              null);
+                (String[]) null);
         return system_apps != 0;
     }
 
