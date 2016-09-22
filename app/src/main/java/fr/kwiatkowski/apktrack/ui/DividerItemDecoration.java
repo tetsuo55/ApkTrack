@@ -46,9 +46,6 @@ class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     private void setOrientation() {
-        if (DividerItemDecoration.VERTICAL_LIST != HORIZONTAL_LIST && DividerItemDecoration.VERTICAL_LIST != VERTICAL_LIST) {
-            throw new IllegalArgumentException("invalid orientation");
-        }
         mOrientation = DividerItemDecoration.VERTICAL_LIST;
     }
 
