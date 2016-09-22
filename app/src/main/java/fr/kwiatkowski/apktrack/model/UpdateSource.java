@@ -112,7 +112,7 @@ public class UpdateSource implements Serializable
                 if (packages == null || packages.length() == 0) {
                     throw new JSONException("packages missing or empty for " + name);
                 }
-                ArrayList<UpdateSourceEntry> entries = new ArrayList<UpdateSourceEntry>();
+                ArrayList<UpdateSourceEntry> entries = new ArrayList<>();
 
                 Iterator<String> it = packages.keys();
                 while (it.hasNext())
