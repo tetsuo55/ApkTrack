@@ -39,7 +39,7 @@ public class DownloadInfo
         }
 
         _last_modified = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LAST_MODIFIED_TIMESTAMP));
-        _local_path = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME));
+        _local_path = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
         _local_uri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
         _status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
         _reason = c.getString(c.getColumnIndex(DownloadManager.COLUMN_REASON));
