@@ -142,7 +142,7 @@ public class UpdateSource implements Serializable
                 JSONArray conditions = sources.getJSONObject(i).optJSONArray("autoselect_if");
                 if (conditions != null)
                 {
-                    List<String> autoselect_conditions = new ArrayList<String>();
+                    List<String> autoselect_conditions = new ArrayList<>();
                     for (int j = 0; j < conditions.length(); ++j) {
                         autoselect_conditions.add(conditions.getString(j));
                     }
@@ -246,7 +246,7 @@ public class UpdateSource implements Serializable
     public static UpdateSource guess_update_source(PackageInfo pi, Bundle metadata)
     {
         android.content.pm.Signature[] signs = pi.signatures;
-        ArrayList<String> details = new ArrayList<String>();
+        ArrayList<String> details = new ArrayList<>();
         for (Signature sign : signs)
         {
             X509Certificate cert;
@@ -320,7 +320,7 @@ public class UpdateSource implements Serializable
             return new String[] {};
         }
 
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         if (get_update_sources() == null) {
             return new String[] {};
         }
