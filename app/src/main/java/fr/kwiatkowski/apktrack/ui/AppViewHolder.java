@@ -54,7 +54,7 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
                            implements View.OnClickListener,
                                       View.OnLongClickListener
 {
-    public static int GREEN = 0xFF4F8A10;
+    private static int GREEN = 0xFF4F8A10;
 
     // --------------------------------------------------------------------------------------------
 

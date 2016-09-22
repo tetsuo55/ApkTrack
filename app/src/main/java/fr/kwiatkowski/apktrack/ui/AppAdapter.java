@@ -32,7 +32,7 @@ import fr.kwiatkowski.apktrack.model.comparator.StatusComparator;
 
 import java.util.*;
 
-public class AppAdapter extends RecyclerView.Adapter<AppViewHolder>
+class AppAdapter extends RecyclerView.Adapter<AppViewHolder>
 {
     private List<InstalledApp> _installed_apps;
     private Context _ctx;
