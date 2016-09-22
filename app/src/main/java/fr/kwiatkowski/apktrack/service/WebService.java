@@ -151,7 +151,7 @@ public class WebService extends IntentService
             huc.setReadTimeout(10000); // Timeout : 10s
             huc.connect();
             conn = huc.getInputStream();
-            String page_contents = _read_all(conn, 2048);
+            String page_contents = _read_all(conn);
 
             // Fix update source quirks
             _fix_update_source_response(source, page_contents);
@@ -265,12 +265,11 @@ public class WebService extends IntentService
     /**
      * Reads the contents of an InputStream and returns it as a String.
      * @param is The InputStream to read from.
-     * @param buffer_size The size of the chunks by which the stream is read.
      * @return The contents of the stream as a String.
      */
-    private static String _read_all(final InputStream is, final int buffer_size)
+    private static String _read_all(final InputStream is)
     {
-        final char[] buffer = new char[buffer_size];
+        final char[] buffer = new char[2048];
         final StringBuilder out = new StringBuilder();
         try
         {
