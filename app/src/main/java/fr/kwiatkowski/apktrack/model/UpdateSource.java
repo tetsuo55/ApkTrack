@@ -72,8 +72,8 @@ public class UpdateSource implements Serializable
 
     // --------------------------------------------------------------------------------------------
 
-    public void set_autoselect_conditions(List<String> conditions) { _autoselect_conditions = conditions; }
-    public void set_request_delay(int delay) { _request_delay = delay; }
+    private void set_autoselect_conditions(List<String> conditions) { _autoselect_conditions = conditions; }
+    private void set_request_delay(int delay) { _request_delay = delay; }
 
     // --------------------------------------------------------------------------------------------
 
@@ -173,7 +173,7 @@ public class UpdateSource implements Serializable
      * Reads the update sources from the JSON asset file.
      * @return A list of available update sources.
      */
-    public static ArrayList<UpdateSource> get_update_sources() {
+    private static ArrayList<UpdateSource> get_update_sources() {
         return _SOURCES;
     }
 
@@ -221,7 +221,7 @@ public class UpdateSource implements Serializable
      * @param name The name of the source to retrieve.
      * @return The requested source, or null if it doesn't exist.
      */
-    public static UpdateSource get_source(String name)
+    private static UpdateSource get_source(String name)
     {
         if (get_update_sources() == null) {
             return null;
@@ -344,7 +344,7 @@ public class UpdateSource implements Serializable
      * @param app The application to check.
      * @return Whether the UpdateSource is valid for a given application.
      */
-    public boolean is_applicable(@NonNull InstalledApp app) {
+    private boolean is_applicable(@NonNull InstalledApp app) {
         return is_applicable(app.get_package_name());
     }
 
@@ -357,7 +357,7 @@ public class UpdateSource implements Serializable
      * @param package_name The package name of the application to check.
      * @return Whether the UpdateSource is valid for a given application.
      */
-    public boolean is_applicable(String package_name)
+    private boolean is_applicable(String package_name)
     {
         // Verify that the update source supports given application by matching the package name.
         for (UpdateSourceEntry pe : _entries)
@@ -407,7 +407,7 @@ public class UpdateSource implements Serializable
      *                ...].
      * @return True if this update source should be used by default for the given app.
      */
-    public boolean test_autoselection(String package_name, List<String> details)
+    private boolean test_autoselection(String package_name, List<String> details)
     {
         if (_autoselect_conditions == null || !is_applicable(package_name)) {
             return false; // No available autoselection conditions: cannot be default.
