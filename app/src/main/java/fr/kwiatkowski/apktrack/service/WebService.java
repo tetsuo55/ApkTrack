@@ -636,10 +636,7 @@ public class WebService extends IntentService
             return false;
         }
 
-        if (ScheduledCheckService.SERVICE_SOURCE.equals(request_source) && _check_cancellation()) {
-            return false;
-        }
-        return true;
+        return !(ScheduledCheckService.SERVICE_SOURCE.equals(request_source) && _check_cancellation());
     }
 
     // --------------------------------------------------------------------------------------------
