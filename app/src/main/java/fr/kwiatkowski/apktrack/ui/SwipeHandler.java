@@ -31,7 +31,7 @@ import fr.kwiatkowski.apktrack.service.message.ModelModifiedMessage;
  * This class is responsible with handling swipe movements in the AppDisplayFragment.
  * Swiped items in the list are removed and become ignored.
  */
-public class SwipeHandler extends ItemTouchHelper.SimpleCallback
+class SwipeHandler extends ItemTouchHelper.SimpleCallback
 {
     private CoordinatorLayout _coordinator_layout;
     private AppAdapter _adapter;
