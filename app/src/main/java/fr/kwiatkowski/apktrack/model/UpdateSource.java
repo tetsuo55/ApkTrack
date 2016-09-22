@@ -88,7 +88,7 @@ public class UpdateSource implements Serializable
             return;
         }
 
-        _SOURCES = new ArrayList<UpdateSource>();
+        _SOURCES = new ArrayList<>();
         Log.v(MainActivity.TAG, "Reading update sources...");
         try {
             InputStream is = ctx.getAssets().open("sources.json");
