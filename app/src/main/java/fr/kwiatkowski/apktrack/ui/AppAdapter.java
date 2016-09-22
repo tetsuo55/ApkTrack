@@ -35,7 +35,7 @@ import java.util.*;
 class AppAdapter extends RecyclerView.Adapter<AppViewHolder>
 {
     private List<InstalledApp> _installed_apps;
-    private Context _ctx;
+    private final Context _ctx;
 
     // --------------------------------------------------------------------------------------------
 
