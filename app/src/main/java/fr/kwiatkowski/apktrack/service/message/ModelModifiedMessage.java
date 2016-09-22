@@ -32,7 +32,7 @@ public class ModelModifiedMessage
 {
     public enum event_type { APP_ADDED, APP_REMOVED, APP_UPDATED }
 
-    private List<Pair<event_type, String>> _events = new ArrayList<Pair<event_type, String>>();
+    private final List<Pair<event_type, String>> _events = new ArrayList<Pair<event_type, String>>();
     private boolean _processed = false;
 
     // --------------------------------------------------------------------------------------------
