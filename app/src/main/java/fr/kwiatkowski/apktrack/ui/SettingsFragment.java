@@ -45,11 +45,6 @@ public class SettingsFragment extends PreferenceFragmentCompat
     // Not displayed in the settings screen: the user interacts with it from the top menu.
     public final static String KEY_PREF_SHOW_SYSTEM = "pref_show_system";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     // --------------------------------------------------------------------------------------------
 
     @Override
