@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -319,11 +318,12 @@ public class InstalledApp extends SugarRecord
      * @return The resulting InstalledApp object, or <code>null</code> if the app couldn't be
      *         created (happens if the app is deleted while this function runs).
      */
+    @SuppressWarnings("UnusedReturnValue")
     private static InstalledApp _create_application(PackageManager pacman,
                                                     PackageInfo pi)
     {
         if (pi == null || pacman == null) {
-            return null;
+            return;
         }
 
         ApplicationInfo info;
@@ -354,7 +354,7 @@ public class InstalledApp extends SugarRecord
         }
         // It happened once that the app was deleted in the meantime
         catch (IllegalArgumentException ignored) {
-            return null;
+            return;
         }
 
         if (status == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER ||
