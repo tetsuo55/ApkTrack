@@ -41,7 +41,7 @@ class AppAdapter extends RecyclerView.Adapter<AppViewHolder>
 
     public AppAdapter(Context ctx)
     {
-        _installed_apps = new ArrayList<InstalledApp>();
+        _installed_apps = new ArrayList<>();
         _ctx = ctx;
     }
 
@@ -291,7 +291,7 @@ class AppAdapter extends RecyclerView.Adapter<AppViewHolder>
      */
     public void sort()
     {
-        List<InstalledApp> old_list = new ArrayList<InstalledApp>(_installed_apps);
+        List<InstalledApp> old_list = new ArrayList<>(_installed_apps);
         Collections.sort(_installed_apps, _get_comparator());
         for (InstalledApp app : _installed_apps) {
             notifyItemMoved(old_list.indexOf(app), _installed_apps.indexOf(app));
