@@ -26,7 +26,7 @@ package fr.kwiatkowski.apktrack.service.message;
  */
 public class CreateToastMessage
 {
-    private String _message;
+    private final String _message;
 
     public CreateToastMessage(String message) {
         _message = message;
