@@ -30,7 +30,7 @@ import fr.kwiatkowski.apktrack.service.message.ModelModifiedMessage;
 
 import java.util.Arrays;
 
-public class UpdateSourceChooser
+class UpdateSourceChooser
 {
     /**
      * Create a chooser dialog that allows the user to choose his update source.
