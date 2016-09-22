@@ -31,6 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.Log;
 import com.orm.SugarRecord;
 import fr.kwiatkowski.apktrack.MainActivity;
@@ -251,9 +252,9 @@ public class InstalledApp extends SugarRecord
         if (icon instanceof  BitmapDrawable) {
             new AppIcon(app, (BitmapDrawable) icon).save();
         }
-        else if (Build.VERSION.SDK_INT >= 21 && icon instanceof VectorDrawable)
+        else if (Build.VERSION.SDK_INT >= 15 && icon instanceof VectorDrawableCompat)
         {
-            VectorDrawable vd = (VectorDrawable) icon;
+            VectorDrawableCompat vd = (VectorDrawableCompat) icon;
             final Bitmap bmp = Bitmap.createBitmap(vd.getIntrinsicWidth(), vd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             final Canvas canvas = new Canvas(bmp);
             vd.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
