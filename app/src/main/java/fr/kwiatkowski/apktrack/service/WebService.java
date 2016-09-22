@@ -336,7 +336,7 @@ public class WebService extends IntentService
     private void onEvent(StickyUpdatedMessage ignored)
     {
         ModelModifiedMessage m = EventBus.getDefault().getStickyEvent(ModelModifiedMessage.class);
-        List<InstalledApp> updated_apps = new ArrayList<InstalledApp>();
+        List<InstalledApp> updated_apps = new ArrayList<>();
         List<Pair<ModelModifiedMessage.event_type, String> > events = m.access_events(new MessageAccessor());
         if (events.size() == 0) {
             return;
