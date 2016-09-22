@@ -33,8 +33,8 @@ import fr.kwiatkowski.apktrack.service.message.ModelModifiedMessage;
  */
 class SwipeHandler extends ItemTouchHelper.SimpleCallback
 {
-    private CoordinatorLayout _coordinator_layout;
-    private AppAdapter _adapter;
+    private final CoordinatorLayout _coordinator_layout;
+    private final AppAdapter _adapter;
 
     public SwipeHandler(CoordinatorLayout cl, AppAdapter adapter)
     {
