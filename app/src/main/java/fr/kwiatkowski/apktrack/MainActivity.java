@@ -47,7 +47,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = "ApkTrack";
-    public static final String APP_FRAGMENT_TAG = "appdisplayfragment";
+    private static final String APP_FRAGMENT_TAG = "appdisplayfragment";
     private AppDisplayFragment _app_display;
 
     // --------------------------------------------------------------------------------------------
