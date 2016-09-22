@@ -24,7 +24,7 @@ package fr.kwiatkowski.apktrack.model;
  */
 public class UpdateSourceEntry
 {
-    private String _applicable_packages;
+    private final String _applicable_packages;
     private String _version_regexp;
     private String _download_url;
     private String _download_regexp;
