@@ -39,7 +39,7 @@ public class ModelModifiedMessage
 
     public ModelModifiedMessage(event_type type, String package_name)
     {
-        Pair<event_type, String> p = new Pair<event_type, String>(type, package_name);
+        Pair<event_type, String> p = new Pair<>(type, package_name);
         _events.add(p);
     }
 
@@ -99,7 +99,7 @@ public class ModelModifiedMessage
         if (_processed) {
             throw new EventAlreadyProcessedException();
         }
-        _events.add(new Pair<event_type, String>(type, package_name));
+        _events.add(new Pair<>(type, package_name));
     }
 
     // --------------------------------------------------------------------------------------------
