@@ -102,7 +102,7 @@ public class AppDisplayFragment extends Fragment {
         _spinner = (LinearLayout) v.findViewById(R.id.spinner);
         _recycler_view = (RecyclerView) v.findViewById(R.id.recycler_view);
         _recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        _recycler_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        _recycler_view.addItemDecoration(new DividerItemDecoration(getActivity()));
         _app_adapter = new AppAdapter(getContext());
         _recycler_view.setAdapter(_app_adapter);
         return v;
