@@ -164,14 +164,14 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         if (reset != null)
         {
-            long ignored_apps = InstalledApp.count(InstalledApp.class, "_isignored = 1", null);
+            long ignored_apps = InstalledApp.count(InstalledApp.class, "_isignored = 1", (String[]) null);
             reset.setEnabled(ignored_apps != 0);
         }
         if (ignore_xposed != null)
         {
             long xposed_apps = InstalledApp.count(InstalledApp.class,
                                                   "_updatesource LIKE 'Xposed%' AND _isignored = 0",
-                                                  null);
+                    (String[]) null);
             ignore_xposed.setEnabled(xposed_apps != 0);
         }
         if (ignore_system != null) {
