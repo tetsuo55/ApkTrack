@@ -28,7 +28,7 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
  */
 public class PollReceiver implements WakefulIntentService.AlarmListener
 {
-    public static final long DELAY = AlarmManager.INTERVAL_DAY;
+    private static final long DELAY = AlarmManager.INTERVAL_DAY;
 
     public void scheduleAlarms(AlarmManager mgr, PendingIntent pi, Context ctxt)
     {
