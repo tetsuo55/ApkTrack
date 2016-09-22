@@ -64,6 +64,6 @@ public class DownloadInfo
     private String  _local_uri;
     private int     _status;
     private String  _reason;
-    private long    _download_id;
+    private final long    _download_id;
     private boolean _valid = false;
 }
