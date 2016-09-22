@@ -54,7 +54,7 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
                            implements View.OnClickListener,
                                       View.OnLongClickListener
 {
-    private static int GREEN = 0xFF4F8A10;
+    private static final int GREEN = 0xFF4F8A10;
 
     // --------------------------------------------------------------------------------------------
 
@@ -417,11 +417,11 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
 
     // --------------------------------------------------------------------------------------------
 
-    private TextView _app_name;
-    private TextView _app_version;
-    private TextView _check_date;
-    private ImageView _app_icon;
-    private ImageView _action_icon;
+    private final TextView _app_name;
+    private final TextView _app_version;
+    private final TextView _check_date;
+    private final ImageView _app_icon;
+    private final ImageView _action_icon;
     private ColorStateList _default_color = null;
 
     // --------------------------------------------------------------------------------------------
@@ -452,8 +452,8 @@ public class AppViewHolder extends    RecyclerView.ViewHolder
             _view.setImageDrawable(icon);
         }
 
-        private Context _ctx;
-        private InstalledApp _app;
-        private ImageView _view;
+        private final Context _ctx;
+        private final InstalledApp _app;
+        private final ImageView _view;
     }
 }
