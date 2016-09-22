@@ -28,7 +28,7 @@
     <!-- Notification strings -->
     <string name="app_updated_notification">%1$s mis à jour.</string>
     <string name="apps_updated_notification">Nouvelles mises à jour détectées.</string>
-    <string name="apps_updated_notification_summary">%1$s et %2$d autre(s) application(s) mise(s) à jour.</string>
+    <string name="apps_updated_notification_summary" tools:ignore="PluralsCandidate">%1$s et %2$d autre(s) application(s) mise(s) à jour.</string>
     <string name="app_version_available">Version %1$s disponible !</string>
     <string name="app_can_be_updated">%1$s peut être mis à jour !</string>
     <!-- Application status strings -->

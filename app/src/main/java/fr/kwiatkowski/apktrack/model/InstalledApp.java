@@ -17,6 +17,7 @@
 
 package fr.kwiatkowski.apktrack.model;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -133,7 +134,7 @@ public class InstalledApp extends SugarRecord
 
         try
         {
-            PackageInfo pi = pacman.getPackageInfo(package_name, PackageManager.GET_SIGNATURES);
+            @SuppressLint("PackageManagerGetSignatures") PackageInfo pi = pacman.getPackageInfo(package_name, PackageManager.GET_SIGNATURES);
             _create_application(pacman, pi);
         }
         catch (PackageManager.NameNotFoundException e)

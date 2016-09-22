@@ -28,7 +28,7 @@
     <!-- Notification strings -->
     <string name="app_updated_notification">%1$s zaktualizowano.</string>
     <string name="apps_updated_notification">Znaleziono nowe aktualizacje.</string>
-    <string name="apps_updated_notification_summary">%1$s i %2$d innych aplikacji może zostać zaktualizowane.</string>
+    <string name="apps_updated_notification_summary" tools:ignore="PluralsCandidate">%1$s i %2$d innych aplikacji może zostać zaktualizowane.</string>
     <string name="app_version_available">Wersja %1$s jest dostępna!</string>
     <string name="app_can_be_updated">%1$s może zostać zaktualizowana!</string>
     <!-- Application status strings -->
