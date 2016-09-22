@@ -697,7 +697,7 @@ public class WebService extends IntentService
 class GetResult
 {
     public enum status_code { SUCCESS, NETWORK_ERROR, ERROR_404, UNKNOWN_ERROR }
-    private status_code _status;
+    private final status_code _status;
     private String _page_contents;
     private Exception _exception = null;
 
