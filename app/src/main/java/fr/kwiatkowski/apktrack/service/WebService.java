@@ -622,20 +622,15 @@ public class WebService extends IntentService
      * @param request_source The source of the intent.
      * @return Whether the version check should proceed.
      */
-    private boolean _check_arguments(InstalledApp app, String request_source, String action)
-    {
-        if (app == null || request_source == null || action == null)
-        {
+    private boolean _check_arguments(InstalledApp app, String request_source, String action) {
+        if (app == null || request_source == null || action == null) {
             Log.v(MainActivity.TAG, "WebService was invoked with no targetApp and/or source argument!");
             return false;
         }
 
         // Unsupported action
-        if (!action.equals(ACTION_DOWNLOAD_APK) && !action.equals(ACTION_VERSION_CHECK)) {
-            return false;
-        }
+        return !(!action.equals(ACTION_DOWNLOAD_APK) && !action.equals(ACTION_VERSION_CHECK)) && !(ScheduledCheckService.SERVICE_SOURCE.equals(request_source) && _check_cancellation());
 
-        return !(ScheduledCheckService.SERVICE_SOURCE.equals(request_source) && _check_cancellation());
     }
 
     // --------------------------------------------------------------------------------------------

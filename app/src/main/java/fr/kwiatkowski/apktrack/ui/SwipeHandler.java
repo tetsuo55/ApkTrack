@@ -24,7 +24,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import fr.kwiatkowski.apktrack.R;
 import fr.kwiatkowski.apktrack.model.InstalledApp;
-import fr.kwiatkowski.apktrack.service.message.ModelModifiedMessage;
 
 /**
  * This class is responsible with handling swipe movements in the AppDisplayFragment.
