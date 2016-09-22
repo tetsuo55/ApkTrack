@@ -71,9 +71,9 @@ public class WebService extends IntentService
     private static final String _nexus_5_user_agent =
             "Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/BuildID) AppleWebKit/537.36" +
             " (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36";
-    private static Pattern _fdroid_not_found;
-    private static Pattern _appbrain_not_found;
-    private static Pattern _play_store_not_a_version;
+    private static final Pattern _fdroid_not_found;
+    private static final Pattern _appbrain_not_found;
+    private static final Pattern _play_store_not_a_version;
     static
     {
         _fdroid_not_found = Pattern.compile("<p>Application not found</p>");
