@@ -323,7 +323,7 @@ public class InstalledApp extends SugarRecord
                                                     PackageInfo pi)
     {
         if (pi == null || pacman == null) {
-            return;
+            return null;
         }
 
         ApplicationInfo info;
@@ -354,7 +354,7 @@ public class InstalledApp extends SugarRecord
         }
         // It happened once that the app was deleted in the meantime
         catch (IllegalArgumentException ignored) {
-            return;
+            return app;
         }
 
         if (status == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER ||
