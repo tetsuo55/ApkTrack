@@ -4,20 +4,19 @@ import android.content.Context;
 
 import com.orm.util.ContextUtil;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
+import com.google.common.collect.MapMaker;
+import java.util.concurrent.ConcurrentMap;
 
 public class SugarContext {
 
     private static SugarDbConfiguration dbConfiguration = null;
     private static SugarContext instance = null;
     private SugarDb sugarDb;
-    private Map<Object, Long> entitiesMap;
+    private ConcurrentMap<Object, Long> entitiesMap;
 
     private SugarContext() {
         this.sugarDb = SugarDb.getInstance();
-        this.entitiesMap = Collections.synchronizedMap(new WeakHashMap<Object, Long>());
+        this.entitiesMap = new MapMaker().weakKeys().makeMap();
     }
     
     public static SugarContext getSugarContext() {
@@ -67,7 +66,7 @@ public class SugarContext {
         return sugarDb;
     }
 
-    public Map<Object, Long> getEntitiesMap() {
+    ConcurrentMap<Object, Long> getEntitiesMap() {
         return entitiesMap;
     }
 }
